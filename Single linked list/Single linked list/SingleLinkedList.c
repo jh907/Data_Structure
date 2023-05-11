@@ -30,7 +30,7 @@ int main() {
 
 	NODE* pTmp = &list[0];
 	while (pTmp != 0) {
-		printf("%p : %p\n", pTmp, pTmp->next);
+		printf("%p : %d\n", pTmp, pTmp->nData);
 		pTmp = pTmp->next;
 	}
 
