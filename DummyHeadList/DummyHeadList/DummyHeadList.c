@@ -71,23 +71,23 @@ void ReleaseNode() {
 	printf("\n\n");
 }
 
-int FindData(char* pszData) {
+NODE* FindData(char* pszData) {
 	NODE* pTmp = g_pHead.next;
+	NODE* pPrev = &g_pHead;
 
-	while (pTmp->next != 0) {
+	while (pTmp != 0) {
 		if (strcmp(pTmp->szData, pszData) == 0) {
-			printf("FindData(): [%p] %s\n", pTmp, pTmp->szData);
-			return 1;
+			return pPrev;
 		}
 		pTmp = pTmp->next;
+		pPrev = pPrev->next;
 	}
 	return 0;
 }
 
 int DeleteData(char* pszData) {
 	NODE* pTmp = g_pHead.next;
-	NODE* pPrev = &g_pHead;
-	while (pTmp != 0) {
+	NODE* pPrev = FindData(pszData);
 		if (strcmp(pTmp->szData, pszData) == 0) {
 			printf("DeleteData(): [%p] %s\n", pTmp, pTmp->szData);
 			pPrev->next = pTmp->next;
@@ -96,7 +96,7 @@ int DeleteData(char* pszData) {
 		}
 		pTmp = pTmp->next;
 		pPrev = pPrev->next;
-	}
+
 	return 0;
 }
 
@@ -130,6 +130,7 @@ int main() {
 	DeleteData("Test01");
 	PrintList();
 
+	ReleaseNode();
 
 	return 0;
 }
