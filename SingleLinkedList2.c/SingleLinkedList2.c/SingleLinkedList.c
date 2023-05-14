@@ -41,7 +41,7 @@ int InsertNewNode(char* pszData) {
 
 	/*
 	pNode값이 추가 될 위치 선정.
-	pNode->next(New Node)가 기존 NODE의 주소를 가리키게 하고, 기존 NODE는 pNode(New Node)를 가르키게 하면 된다. 순서를 바꾸게 되면 Data 유실.
+	pNode->next(New Node)가 기존 NODE의 주소를 가리키게 하고, g_pHead는 pNode(New Node)를 가르키게 하면 된다. 순서를 바꾸게 되면 Data 유실.
 	*/
 	if (g_pHead == NULL)
 		g_pHead = pNode;
@@ -51,6 +51,18 @@ int InsertNewNode(char* pszData) {
 	}
 
 	return 1;
+}
+
+//리스트 삭제 함수
+void ReleaseList() {
+	NODE* pTmp = g_pHead;
+	while (pTmp != NULL) {
+		NODE* pDelete = pTmp;
+		pTmp = pTmp->next;
+
+		printf("Delete: [%p] %s\n", pDelete, pDelete->szData);
+		free(pDelete);
+	}
 }
 
 int main() {
@@ -64,6 +76,7 @@ int main() {
 	InsertNewNode("Test03");
 	PrintList();
 
+	ReleaseList(); 
 	return 0;
 }
 
